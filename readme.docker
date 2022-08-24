@@ -1,0 +1,7 @@
+This is the dockerfile for the backend image of the
+hoa-colors.com website. These files are required to build the image
+so the image can be included in the docker-compose file for the
+site.
+The site.cfg file is a copy of the buildout.cfg file used in
+local development for the plone backend on the local desktop
+development environment.
