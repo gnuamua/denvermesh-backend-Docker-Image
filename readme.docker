@@ -5,3 +5,6 @@ site.
 The site.cfg file is a copy of the buildout.cfg file used in
 local development for the plone backend on the local desktop
 development environment.
+
+The github repo 'backend' contains all the development files for the Plone
+API backend for the hoa-colors.com website.
