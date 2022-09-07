@@ -1,0 +1,4 @@
+Pillow
+plone.formwidget.hcaptcha
+collective.volto.formsupport
+collective.easyform
