@@ -1,10 +1,21 @@
+----------------This is the HOACOLORS-BACKEND REPO------------------------
+
 This is the dockerfile for the backend image of the
 hoa-colors.com website. These files are required to build the image
 so the image can be included in the docker-compose file for the
 site.
-The site.cfg file is a copy of the buildout.cfg file used in
-local development for the plone backend on the local desktop
-development environment.
+The Dockerfile uses a fedora 36 base image, and installs the plone backend and addons using
+pip instead of buildout. This file also copies requirements.txt and the skeleton dir
+into the image, as these files are used to configure the image.
 
-The github repo 'backend' contains all the development files for the Plone
+The github repo 'backend', NOT 'hoacolors-backend', contains all the development files for the Plone
 API backend for the hoa-colors.com website.
+
+The following is a list of the github Repos:
+1) Docker-Compose  -used to start the images together for the hoa-colors.com website.
+2) Hoacolors-websever -an nginx docker image used to handle requests to/from volto & plone.
+3) Frontend -the development environment for local development of Volto frontend on desktop computer.
+4) Hoacolors-Frontend - Used to build docker image from the 'frontend' ( #3) repository. #3 is a git submodule of this repo.
+5) Backend - used for local development and tracking of the Data.fs database for the plone backend.
+6) Hoacolors-Backend -used to make a docker image of clean plone using pip installation.
+
