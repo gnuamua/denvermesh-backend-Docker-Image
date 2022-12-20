@@ -19,3 +19,6 @@ The following is a list of the github Repos:
 5) Backend - used for local development and tracking of the Data.fs database for the plone backend.
 6) Hoacolors-Backend -used to make a docker image of clean plone using pip installation.
 
+Any locally developed addon's for content types or site policy (workflow) will need to be copied into this directory and the Dockerfile 
+updated as necessary.
+This is most likely done by copying the 'src' directory.
