@@ -1,4 +1,8 @@
+-e src/hoacolors.content
+
 Pillow
 plone.formwidget.hcaptcha
 collective.volto.formsupport
 collective.easyform
+collective.volto.cookieconsent
+pas.plugins.authomatic

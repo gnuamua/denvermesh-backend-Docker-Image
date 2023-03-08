@@ -2,8 +2,8 @@ FROM fedora:latest as base
 FROM base as builder
 
 ENV PIP_PARAMS=""
-ENV PIP_VERSION=22.2.2
-ENV PLONE_VERSION=6.0.0b1
+ENV PIP_VERSION=23.0.1
+ENV PLONE_VERSION=6.0.0
 
 RUN mkdir /wheelhouse
 
@@ -20,8 +20,8 @@ RUN pip wheel Plone plone.volto -c https://dist.plone.org/release/$PLONE_VERSION
 FROM base
 
 ENV PIP_PARAMS=""
-ENV PIP_VERSION=22.2.2
-ENV PLONE_VERSION=6.0.0.a6
+ENV PIP_VERSION=23.0.1
+ENV PLONE_VERSION=6.0.0
 
 LABEL maintainer="Andrew Himelstieb <admin@hoa-colors.com>" \
       org.label-schema.name="plone-backend" \
@@ -38,6 +38,7 @@ RUN useradd --system -m -d /app -U -u 500 plone \
 
 WORKDIR /app
 
+COPY skeleton/ /app
 COPY requirements.txt /app
 
 RUN virtualenv . \
@@ -48,7 +49,6 @@ RUN virtualenv . \
     && find . \( -type f -a -name '*.pyc' -o -name '*.pyo' \) -exec rm -rf '{}' + \
     && rm -Rf .cache
 
-COPY skeleton/ /app
 
 RUN ln -s /data var \
     && find /data  -not -user plone -exec chown plone:plone {} \+ \
