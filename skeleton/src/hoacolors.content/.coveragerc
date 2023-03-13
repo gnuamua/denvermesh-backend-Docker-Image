@@ -1,0 +1,6 @@
+[report]
+include =
+    src/hoacolors/*
+omit =
+    */test*
+    */upgrades/*

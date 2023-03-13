@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<object name="portal_types" meta_type="Plone Types Tool">
+  <object name="subscription" meta_type="Dexterity FTI"/>
+  <object name="hoa" meta_type="Dexterity FTI"/>
+  <object name="home" meta_type="Dexterity FTI"/>
+  <object name="colorscheme" meta_type="Dexterity FTI"/>
+</object>

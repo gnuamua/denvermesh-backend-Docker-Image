@@ -1,0 +1,5 @@
+=================
+hoacolors.content
+=================
+
+User documentation
