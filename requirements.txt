@@ -1,11 +1,34 @@
 -e src/hoacolors.content
 -e src/dexterity.membrane.authomatic
+-e src/dexterity.membrane
 
 Pillow
 plone.formwidget.hcaptcha
 collective.volto.formsupport
 collective.easyform
+node == 1.0                                                                                                                                                                               
+odict == 1.9
+plone.formwidget.hcaptcha == 1.0.2    
+plumber == 1.7
+repoze.catalog == 0.9.0
+zope.index == 5.2.0
 collective.volto.cookieconsent
 pas.plugins.authomatic
 Products.membrane
 dexterity.membrane
+bcrypt == 4.0.1
+cachetools == 5.3.0
+chardet == 5.1.0
+click == 8.1.3
+distlib == 0.3.6
+fancycompleter == 0.9.1
+filelock == 3.9.0
+pdbpp == 0.10.3
+platformdirs == 3.1.1
+plone.app.debugtoolbar == 1.3.0
+plone.reload == 3.0.2
+pluggy == 1.0.0
+pyproject-api == 1.5.1
+pyrepl == 0.9.0
+tomli == 2.0.1
+z3c.jbot == 1.1.1

@@ -15,7 +15,7 @@ RUN dnf update -y \
     && rm -Rf /usr/share/doc
 
 RUN pip install wheel 
-RUN pip wheel Plone plone.volto -c https://dist.plone.org/release/$PLONE_VERSION/constraints.txt --wheel-dir=/wheelhouse
+RUN pip wheel Plone plone.volto -c https://dist.plone.org/release/6.0-latest/constraints.txt --wheel-dir=/wheelhouse
 
 FROM base
 
