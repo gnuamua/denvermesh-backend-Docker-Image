@@ -1,4 +1,5 @@
 -e src/hoacolors.content
+-e src/dexterity.membrane.authomatic
 
 Pillow
 plone.formwidget.hcaptcha
@@ -6,3 +7,5 @@ collective.volto.formsupport
 collective.easyform
 collective.volto.cookieconsent
 pas.plugins.authomatic
+Products.membrane
+dexterity.membrane
