@@ -11,11 +11,11 @@
       layer="hoacolors.content.interfaces.IHoacolorsContentLayer"
       />
 
-  <!-- Publish static files -->
+  <!-- Publish static files 
   <plone:static
       name="hoacolors.content"
       type="plone"
       directory="static"
-      />
+      />-->
 
 </configure>

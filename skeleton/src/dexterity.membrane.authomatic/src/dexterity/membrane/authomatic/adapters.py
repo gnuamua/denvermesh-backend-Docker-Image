@@ -1,5 +1,5 @@
-from Products.CMFPlone.interfaces import IRedirectAfterLogin
-from Products.CMFPlone.interfaces import IInitialLogin
+from plone.base.interfaces import IRedirectAfterLogin
+from plone.base.interfaces import IInitialLogin
 from plone.registry.interfaces import IRegistry
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import safe_unicode
