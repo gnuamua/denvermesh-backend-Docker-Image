@@ -1,0 +1,4 @@
+graft src/hoacolors
+graft docs
+include *.rst
+global-exclude *.pyc

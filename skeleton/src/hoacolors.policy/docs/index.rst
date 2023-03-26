@@ -1,0 +1,5 @@
+================
+hoacolors.policy
+================
+
+User documentation

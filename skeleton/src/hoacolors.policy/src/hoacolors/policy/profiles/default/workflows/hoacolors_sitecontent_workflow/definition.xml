@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dc-workflow workflow_id="hoacolors_sitecontent_workflow" title="HOA-Colors Site Content" description=" - A workflow tailored for the HOA-Colors website. -This workflow is configured for the Subscription, HOA, Home, and ColorScheme content types and the states and transitions as well as the roles and permissions associated with each of them." state_variable="review_state" initial_state="Subscription canceled" manager_bypass="False">
+ <group>HOAmanagers</group>
+ <group>HomeOwners</group>
+ <permission>Access contents information</permission>
+ <permission>Modify portal content</permission>
+ <permission>View</permission>
+ <permission>Add portal content</permission>
+ <permission>Manage users</permission>
+ <state state_id="Subscription Active" title="Subscription Active">
+  <description>The workflow state for when the HOAmanager has an active subscription.</description>
+  <exit-transition transition_id="cancelSubscription"/>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>HOAmanager</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Add portal content" acquired="False">
+   <permission-role>HOAmanager</permission-role>
+   <permission-role>HomeOwner</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Manage users" acquired="False">
+   <permission-role>HOAmanager</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>HOAmanager</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>HOAmanager</permission-role>
+   <permission-role>HomeOwner</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <group-map name="HOAmanagers">
+   <group-role>HOAmanager</group-role>
+  </group-map>
+  <group-map name="HomeOwners">
+   <group-role>HomeOwner</group-role>
+  </group-map>
+ </state>
+ <state state_id="Subscription canceled" title="Subscription Canceled">
+  <description>Workflow State for when the subscription is inactive, e.g. for when a payment is needed.</description>
+  <exit-transition transition_id="activateSubscription"/>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Add portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Manage users" acquired="False">
+   <permission-role>HOAmanager</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="pending" title="Pending review">
+  <description>Waiting to be reviewed, not editable by the owner.</description>
+  <exit-transition transition_id="hide"/>
+  <exit-transition transition_id="publish"/>
+  <exit-transition transition_id="reject"/>
+  <exit-transition transition_id="retract"/>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="published" title="Published">
+  <description>Visible to everyone, not editable by the owner.</description>
+  <exit-transition transition_id="reject"/>
+  <exit-transition transition_id="retract"/>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+ </state>
+ <state state_id="visible" title="Public draft">
+  <description>Visible to everyone, but not approved by the reviewers.</description>
+  <exit-transition transition_id="hide"/>
+  <exit-transition transition_id="publish"/>
+  <exit-transition transition_id="submit"/>
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Anonymous</permission-role>
+  </permission-map>
+ </state>
+ <transition transition_id="activateSubscription" title="Activate Subscription" new_state="Subscription Active" trigger="USER" before_script="" after_script="">
+  <description>Transition to the subscription active state.</description>
+  <action url="" category="workflow" icon="">Activate Subscription</action>
+  <guard>
+  </guard>
+ </transition>
+ <transition transition_id="cancelSubscription" title="Cancel Subscription" new_state="Subscription canceled" trigger="USER" before_script="" after_script="">
+  <description>Transition to the subscription canceled State.</description>
+  <action url="" category="workflow" icon="">Cancel Subscription</action>
+  <guard>
+  </guard>
+ </transition>
+ <transition transition_id="publish" title="Reviewer publishes content" new_state="published" trigger="USER" before_script="" after_script="">
+  <description>Publishing the item makes it visible to other users.</description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=publish" category="workflow" icon="">Publish</action>
+  <guard>
+   <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </transition>
+ <transition transition_id="retract" title="Member retracts submission" new_state="visible" trigger="USER" before_script="" after_script="">
+  <description>If you submitted the item by mistake or want to perform additional edits, this will take it back.</description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=retract" category="workflow" icon="">Retract</action>
+  <guard>
+   <guard-permission>Request review</guard-permission>
+  </guard>
+ </transition>
+ <transition transition_id="show" title="Member promotes content to public draft" new_state="visible" trigger="USER" before_script="" after_script="">
+  <description>Promotes your private item to a public draft.</description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=show" category="workflow" icon="">Promote to Draft</action>
+  <guard>
+   <guard-permission>Modify portal content</guard-permission>
+  </guard>
+ </transition>
+ <transition transition_id="submit" title="Member submits content for publication" new_state="pending" trigger="USER" before_script="" after_script="">
+  <description>Puts your item in a review queue, so it can be published on the site.</description>
+  <action url="%(content_url)s/content_status_modify?workflow_action=submit" category="workflow" icon="">Submit for publication</action>
+  <guard>
+   <guard-permission>Request review</guard-permission>
+  </guard>
+ </transition>
+ <worklist worklist_id="active_subscriptions" title="">
+  <description>List all the active subscriptions for HOAmanagers</description>
+  <action url="" category="global" icon="">Current Active Subscriptions</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+  </guard>
+  <match name="review_state" values="Subscription Active"/>
+ </worklist>
+ <worklist worklist_id="reviewer_queue" title="">
+  <description>Reviewer tasks</description>
+  <action url="%(portal_url)s/search?review_state=pending" category="global" icon="">Pending (%(count)d)</action>
+  <guard>
+   <guard-permission>Review portal content</guard-permission>
+  </guard>
+  <match name="review_state" values="pending"/>
+ </worklist>
+ <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
+  <description>Previous transition</description>
+  <default>
+   
+   <expression>transition/getId|nothing</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
+  <description>The ID of the user who performed the last transition</description>
+  <default>
+   
+   <expression>user/getId</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
+  <description>Comment about the last transition</description>
+  <default>
+   
+   <expression>python:state_change.kwargs.get('comment', '')</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+ <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
+  <description>Provides access to workflow history</description>
+  <default>
+   
+   <expression>state_change/getHistory</expression>
+  </default>
+  <guard>
+   <guard-permission>Request review</guard-permission>
+   <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </variable>
+ <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
+  <description>When the previous transition was performed</description>
+  <default>
+   
+   <expression>state_change/getDateTime</expression>
+  </default>
+  <guard>
+  </guard>
+ </variable>
+</dc-workflow>
