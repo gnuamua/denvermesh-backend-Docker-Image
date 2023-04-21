@@ -10,14 +10,19 @@
  <property name="immediate_view">view</property>
  <property name="global_allow">False</property>
  <property name="filter_content_types">True</property>
- <property name="allowed_content_types"/>
+ <property name="allowed_content_types">
+  <element value="hoa" />
+  <element value="home" />
+  <element value="colorscheme" />
+</property>
  <property name="allow_discussion">False</property>
  <property name="default_view">view</property>
  <property name="view_methods">
   <element value="view"/>
+  <element value="subscription_view"/>
  </property>
  <property name="default_view_fallback">False</property>
- <property name="add_permission">cmf.AddPortalContent</property>
+ <property name="add_permission">hoacolors.AddSubscription</property>
  <property name="klass">hoacolors.content.content.subscription.Subscription</property>
  <property name="schema">hoacolors.content.content.subscription.ISubscription</property>
  <property name="behaviors">

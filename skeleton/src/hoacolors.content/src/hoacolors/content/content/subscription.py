@@ -15,7 +15,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 def zipcodeIsValid(value):
     """Check if zipcode is valid"""
     if value:
-        if len(value)!= 5:
+        if len(str(value))!= 5:
             raise ValidationError("Zipcode must be 5 digits")
     return True
 
@@ -34,7 +34,7 @@ def firstNameConstraint(value):
 def totalHomesIsValid(value):
     """Check if total Homes is a valid positive number"""
     if value:
-        if valuer <= 0:
+        if value <= 0:
             raise zope.interface.Invalid("Total number of homes must be a postive number greater than Zero")
     return True
 

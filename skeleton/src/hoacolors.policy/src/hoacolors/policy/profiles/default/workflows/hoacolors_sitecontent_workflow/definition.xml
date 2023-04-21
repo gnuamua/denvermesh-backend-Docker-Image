@@ -7,6 +7,10 @@
  <permission>View</permission>
  <permission>Add portal content</permission>
  <permission>Manage users</permission>
+ <permission>HOA-Colors: View Subscription</permission>
+ <permission>HOA-Colors: View HOA</permission>
+ <permission>HOA-Colors: View Home</permission>
+ <permission>HOA-Colors: View Colorscheme</permission>
  <state state_id="Subscription Active" title="Subscription Active">
   <description>The workflow state for when the HOAmanager has an active subscription.</description>
   <exit-transition transition_id="cancelSubscription"/>
@@ -38,6 +42,28 @@
   <permission-map name="View" acquired="False">
    <permission-role>HOAmanager</permission-role>
    <permission-role>HomeOwner</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="HOA-Colors: View Subscription" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="HOA-Colors: View HOA" acquired="False">
+   <permission-role>HOAmanager</permission-role>
+   <permission-role>HomeOwner</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="HOA-Colors: View Home" acquired="False">
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="HOA-Colors: View Colorscheme" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Site Administrator</permission-role>
