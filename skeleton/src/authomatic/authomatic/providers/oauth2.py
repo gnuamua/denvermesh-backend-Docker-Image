@@ -2050,11 +2050,12 @@ class Twitter(OAuth2):
             redirect_uri = req_var['redirect_uri']
             user_state = req_var['state']
             authorization_code = 'rsC9arN7WM'
+            user_scope = 'users.read'
             #import pdb;pdb.set_trace()
             params['response_type'] = 'code'
             params['client_id'] = consumer_key
             params['redirect_uri'] = redirect_uri
-            params['scope'] = cls.user_info_scope
+            params['scope'] = user_scope
             params['state'] = user_state
             params['code_challenge'] = authorization_code
             params['code_challenge_method'] = 'plain' 
