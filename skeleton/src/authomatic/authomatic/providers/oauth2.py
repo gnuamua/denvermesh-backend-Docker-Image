@@ -2024,7 +2024,7 @@ class Twitter(OAuth2):
 
     _x_use_authorization_header = True
 
-    supports_jsonp = True
+    supports_jsonp = False
 
     supported_user_attributes = core.SupportedUserAttributes(
         id=True,
@@ -2048,15 +2048,14 @@ class Twitter(OAuth2):
             consumer_key = credentials.consumer_key
             req_var = request_elements[2]
             redirect_uri = req_var['redirect_uri']
-            user_info_scope = 'users.read'
             user_state = req_var['state']
             authorization_code = 'rsC9arN7WM'
             #import pdb;pdb.set_trace()
             params['response_type'] = 'code'
             params['client_id'] = consumer_key
             params['redirect_uri'] = redirect_uri
-            params['scope'] = user_info_scope
-            params['state'] = base64.urlsafe_b64encode(user_state)
+            params['scope'] = cls.user_info_scope
+            params['state'] = user_state
             params['code_challenge'] = authorization_code
             params['code_challenge_method'] = 'plain' 
             request_elements = core.RequestElements(url, method, params, headers, body)
