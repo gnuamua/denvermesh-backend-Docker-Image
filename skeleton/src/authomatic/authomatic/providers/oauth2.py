@@ -2020,7 +2020,6 @@ class Twitter(OAuth2):
     user_authorization_url = 'https://twitter.com/i/oauth2/authorize'
     access_token_url = 'https://api.twitter.com/2/oauth2/token'
     user_info_url = 'https://api.twitter.com/2/users/me'
-
     user_info_scope = ['users.read']
 
     _x_use_authorization_header = True
@@ -2032,17 +2031,42 @@ class Twitter(OAuth2):
         username=True
     )
 
+    def __init__(self, *args, **kwargs):
+        super(Twitter, self).__init__(*args, **kwargs)
+
     @classmethod
     def _x_credentials_parser(cls, credentials, data):
         if data.get('token_type') == 'bearer':
             credentials.token_type = cls.BEARER
         return credentials
 
+    @classmethod
+    def _x_request_elements_filter(cls, request_type, request_elements, credentials):
+        #Twitter needs to rearrange the param in the redirect url for authorization.
+        if request_type == cls.USER_AUTHORIZATION_REQUEST_TYPE:
+            url, method, params, headers, body = request_elements
+            consumer_key = credentials.consumer_key
+            req_var = request_elements[2]
+            redirect_uri = req_var['redirect_uri']
+            user_info_scope = 'users.read'
+            user_state = req_var['state']
+            authorization_code = 'rsC9arN7WM'
+            #import pdb;pdb.set_trace()
+            params['response_type'] = 'code'
+            params['client_id'] = consumer_key
+            params['redirect_uri'] = redirect_uri
+            params['scope'] = user_info_scope
+            params['state'] = base64.urlsafe_b64encode(user_state)
+            params['code_challenge'] = authorization_code
+            params['code_challenge_method'] = 'plain' 
+            request_elements = core.RequestElements(url, method, params, headers, body)
+        return request_elements
+            
+    
     @staticmethod
     def _x_user_parser(user, data):
         user.username = data.get('screen_name')
         user.id = data.get('id') or data.get('user_id')
-
         return user
 
 # The provider type ID is generated from this list's indexes!
