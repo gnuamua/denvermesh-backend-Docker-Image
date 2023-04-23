@@ -460,7 +460,7 @@ class Session(object):
 
         # 2. Encode
         # Percent encoding produces smaller result then urlsafe base64.
-        encoded = parse.quote_plus(serialized, '')
+        encoded = parse.quote(serialized, '')
 
         # 3. Concatenate
         timestamp = str(int(time.time()))
@@ -874,7 +874,7 @@ class Credentials(ReprMixin):
         concatenated = '\n'.join(stringified)
 
         # Percent encode.
-        return parse.quote_plus(concatenated, '')
+        return parse.quote(concatenated, '')
 
     @classmethod
     def deserialize(cls, config, credentials):
