@@ -2020,7 +2020,7 @@ class Twitter(OAuth2):
     user_authorization_url = 'https://twitter.com/i/oauth2/authorize'
     access_token_url = 'https://api.twitter.com/2/oauth2/token'
     user_info_url = 'https://api.twitter.com/2/users/me'
-    user_info_scope = ['users.read']
+    user_info_scope = ['users.read', 'tweets.read']
 
     _x_use_authorization_header = True
 
@@ -2031,26 +2031,48 @@ class Twitter(OAuth2):
         username=True
     )
 
-    def __init__(self, *args, **kwargs):
-        super(Twitter, self).__init__(*args, **kwargs)
+    def access(self, url, **kwargs):
+
+        def parent_access(url):
+            return super(Twitter, self).access(url, **kwargs)
+
+        
+        response = parent_access(url)
+        #import pdb;pdb.set_trace()
+        user_data = response.data
+        def make_user(user, data):
+            return super(Twitter, self)._x_user_parser(user, data)
+
+        user = make_user(user_data, user_data)    
+        if response.status == 200:
+            self._update_or_create_user(response.data, self.credentials)
+            #import pdb;pdb.set_trace()
+        return response
 
     @classmethod
     def _x_credentials_parser(cls, credentials, data):
-        if data.get('token_type') == 'bearer':
+        #import pdb;pdb.set_trace()
+        _access_token = data['access_token']
+        credentials.token = _access_token
+        if data['token_type'] == 'bearer':
             credentials.token_type = cls.BEARER
+        _expire_in = data['expires_in']
+        if _expire_in:
+            credentials.expire_in = _expire_in
         return credentials
 
     @classmethod
     def _x_request_elements_filter(cls, request_type, request_elements, credentials):
         #Twitter needs to rearrange the param in the redirect url for authorization.
+        authorization_code = 'rsC9arN7WM'
+        headers = {}
         if request_type == cls.USER_AUTHORIZATION_REQUEST_TYPE:
             url, method, params, headers, body = request_elements
             consumer_key = credentials.consumer_key
             req_var = request_elements[2]
             redirect_uri = req_var['redirect_uri']
             user_state = req_var['state']
-            authorization_code = 'rsC9arN7WM'
-            user_scope = 'users.read'
+            user_scope = 'tweet.read users.read'
             #import pdb;pdb.set_trace()
             params['response_type'] = 'code'
             params['client_id'] = consumer_key
@@ -2060,13 +2082,37 @@ class Twitter(OAuth2):
             params['code_challenge'] = authorization_code
             params['code_challenge_method'] = 'plain' 
             request_elements = core.RequestElements(url, method, params, headers, body)
+
+        if request_type == cls.ACCESS_TOKEN_REQUEST_TYPE:
+            url, method, params, headers, body = request_elements
+            #import pdb;pdb.set_trace()
+            params['grant_type'] = 'authorization_code'
+            params['code_verifier']= authorization_code
+            request_elements = core.RequestElements(
+                url, method, params, headers, body)
+        
+        if request_type == cls.PROTECTED_RESOURCE_REQUEST_TYPE:
+            url, method, params, headers, body = request_elements
+            # Protected resource request.
+            #import pdb;pdb.set_trace()
+            # Add Authorization header. See:
+            # http://tools.ietf.org/html/rfc6749#section-7.1
+            if credentials.token_type == cls.BEARER:
+                # http://tools.ietf.org/html/rfc6750#section-2.1
+                headers.update({'Authorization': 'Bearer {0}'.format(credentials.token)})
+
         return request_elements
             
     
     @staticmethod
     def _x_user_parser(user, data):
-        user.username = data.get('screen_name')
-        user.id = data.get('id') or data.get('user_id')
+        _data = data.get('data')
+        if _data:
+            user.id = data['data']['id']
+            user.username = data['data']['username']
+            user.name = data['data']['name']
+
+        #import pdb;pdb.set_trace()
         return user
 
 # The provider type ID is generated from this list's indexes!

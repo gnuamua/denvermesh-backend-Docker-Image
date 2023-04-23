@@ -24,7 +24,8 @@ from authomatic.exceptions import (
     SessionError,
 )
 from authomatic import six
-from authomatic.six.moves import urllib_parse as parse
+from  authomatic.six.moves import urllib_parse as parse
+import urllib
 
 
 # =========================================================================
@@ -459,7 +460,7 @@ class Session(object):
 
         # 2. Encode
         # Percent encoding produces smaller result then urlsafe base64.
-        encoded = parse.quote(serialized, '')
+        encoded = parse.quote_plus(serialized, '')
 
         # 3. Concatenate
         timestamp = str(int(time.time()))
@@ -492,7 +493,7 @@ class Session(object):
             return None
 
         # 2. Decode
-        decoded = parse.unquote(encoded)
+        decoded = parse.unquote_plus(encoded)
 
         # 1. Deserialize
         deserialized = pickle.loads(decoded.encode('latin-1'))
@@ -873,7 +874,7 @@ class Credentials(ReprMixin):
         concatenated = '\n'.join(stringified)
 
         # Percent encode.
-        return parse.quote(concatenated, '')
+        return parse.quote_plus(concatenated, '')
 
     @classmethod
     def deserialize(cls, config, credentials):
@@ -898,7 +899,7 @@ class Credentials(ReprMixin):
         if isinstance(credentials, Credentials):
             return credentials
 
-        decoded = parse.unquote(credentials)
+        decoded = parse.unquote_plus(credentials)
 
         split = decoded.split('\n')
 
@@ -1242,8 +1243,9 @@ class RequestElements(tuple):
         """
         Query string of the request.
         """
-
-        return parse.urlencode(self.params)
+        return parse.urlencode(self.params, quote_via=urllib.parse.quote)
+        #urllib.request.pathname2url
+        #return urllib.parse.quote_plus(str(self.params))
 
     @property
     def full_url(self):
