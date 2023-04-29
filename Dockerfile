@@ -54,7 +54,7 @@ RUN ln -s /data var \
     && find /data  -not -user plone -exec chown plone:plone {} \+ \
     && find /app -not -user plone -exec chown plone:plone {} \+
 
-EXPOSE 8088
+EXPOSE 8080
 VOLUME /data
 
 USER plone
