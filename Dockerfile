@@ -25,7 +25,7 @@ ENV PLONE_VERSION=6.0.0
 
 LABEL maintainer="Andrew Himelstieb <admin@hoa-colors.com>" \
       org.label-schema.name="plone-backend" \
-      org.label-schema.description="Plone backend image image using Python 3.9 and Fedora 36" \
+      org.label-schema.description="Plone backend image image using Python 3.9 and Fedora 38" \
       org.label-schema.vendor="HOA-Colors"
 
 COPY --from=builder /wheelhouse /wheelhouse
@@ -54,7 +54,7 @@ RUN ln -s /data var \
     && find /data  -not -user plone -exec chown plone:plone {} \+ \
     && find /app -not -user plone -exec chown plone:plone {} \+
 
-EXPOSE 8080
+EXPOSE 8088
 VOLUME /data
 
 USER plone
