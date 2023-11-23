@@ -13,11 +13,13 @@
   -->
   <!--<includeDependencies package="." />-->
 
-  <include package=".browser" />
-  <include package=".api" />
-
+  
   <include file="permissions.zcml" />
 
+  <include package=".browser" />
+  <include package=".api" />
+ 
+ 
   <genericsetup:registerProfile
       name="default"
       title="hoacolors.content"

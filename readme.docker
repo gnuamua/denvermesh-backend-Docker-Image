@@ -19,6 +19,11 @@ The following is a list of the github Repos:
 5) Backend - used for local development and tracking of the Data.fs database for the plone backend.
 6) Hoacolors-Backend -used to make a docker image of clean plone using pip installation.
 
-Any locally developed addon's for content types or site policy (workflow) will need to be copied into this directory and the Dockerfile 
+Any locally developed addons, e.g. for content types or site policy (workflow) etc will need to be copied into this directory and the Dockerfile 
 updated as necessary.
-This is most likely done by copying the 'src' directory.
+This is most likely done by copying the 'src' directory in the backend #5.
+
+Once this docker image is built and pushed to dockerhub, and then pulled by the server, the Data.fs file (the plone ZODB database) will need to be copied into the persistant
+volume for the docker-compose container on the server, located in /var/lib/docker/volumes/_data/ or there abouts. 
+	rsync -avz source dest  for the blobstorage as well to the blobstorage in about the same above location on the server. 
+	--This essentially copies the entire site (minus the volto frontend) from the developement environment on local computer to server,  or can be done vice-versa.

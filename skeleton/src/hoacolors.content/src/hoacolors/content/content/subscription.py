@@ -11,6 +11,11 @@ from zope.interface import implementer
 from zope.interface import Invalid
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
+from z3c.form import validator
+from plone.uuid.interfaces import IUUID
+from plone.base.utils import getToolByName
+import zope.component
+
 
 def zipcodeIsValid(value):
     """Check if zipcode is valid"""
@@ -42,61 +47,83 @@ class ISubscription(model.Schema):
     """Dexterity-Schema for HOA Subscriptions"""
 
     name_of_hoa= schema.TextLine(
-        title='Name of HOA',
-        description='The name of the Home Owners Association',
+        title=u'Name of HOA',
+        description=u'The name of the Home Owners Association',
         required=True,
     )
 
     email = Email(
-        title='Email of Manager',
-        description='Email adress of the HOA manager',
+        title=u'Email of Manager',
+        description=u'Email adress of the HOA manager',
         required=True,
     )
 
     first_name = schema.TextLine(
-        title='First Name',
-        description='First name of the Manager',
+        title=u'First Name',
+        description=u'First name of the Manager',
         required=True,
         constraint=firstNameConstraint,
     )
 
     last_name = schema.TextLine(
-        title='Last Name',
-        description='Last name of the Manager',
+        title=u'Last Name',
+        description=u'Last name of the Manager',
         required=True,
         constraint=lastNameConstraint,
     )
 
+    phoneNumber = schema.TextLine(
+        title=u'Phone Number',
+        description=u'Phone Number of HOA Manager',
+        required=True,
+    )
+
     address = schema.TextLine(
-        title='Street Address',
-        description='Street Address of the HOA to be configured',
+        title=u'Street Address',
+        description=u'Street Address of the HOA to be configured',
         required=True,
     )
 
     zipcode = schema.Int(
-        title='Zipcode',
-        description='Zipcode of the HOA',
+        title=u'Zipcode',
+        description=u'Zipcode of the HOA',
         required=True,
         constraint=zipcodeIsValid,
     )
 
     total_homes = schema.Int(
-        title='Total Homes',
-        description='The total number of Homes in the HOA',
+        title=u'Total Homes',
+        description=u'The total number of Homes in the HOA',
         required=True,
         constraint=totalHomesIsValid,
     )
 
     start = schema.Datetime(
-        title=('Start date'),
+        title=u'Start date',
+        description=u'Start date of the Monthly Subscription',
         required=False,
     )
 
-    end = schema.Datetime(
-        title=('End date'),
-        required=False,
+    price = schema.TextLine(
+        title=u'Price Per Month',
+        description=u'Price per Month',
+        required=True,
     )
+
+    subscription_id = schema.TextLine(
+        title=u'Subscription ID',
+        description=u'Subscription ID from PayPal',
+        required=True,
+    ) 
+
+    communityCode = schema.TextLine(
+        title=u'Community Code',
+        description=u'The unique Code for each HOA to be used by HomeOwners to create a Home ContentType',
+        required=True,
+    )
+
 
 @implementer(ISubscription)
 class Subscription(Container):
     """Subscription content type instance class"""
+     

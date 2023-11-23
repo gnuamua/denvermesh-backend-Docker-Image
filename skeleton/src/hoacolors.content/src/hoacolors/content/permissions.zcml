@@ -26,27 +26,6 @@
     title="HOA-Colors: Add Colorscheme"
     />
 
-  <permission
-    id="hoacolors.ViewSubscription"
-    title="HOA-Colors: View Subscription"
-    />
-
-  <permission
-    id="hoacolors.ViewHOA"
-    title="HOA-Colors: View HOA"
-    />
-
-  <permission
-    id="hoacolors.ViewHome"
-    title="HOA-Colors: View Home"
-    />
-
-  <permission
-    id="hoacolors.ViewColorscheme"
-    title="HOA-Colors: View Colorscheme"
-    />
-
-
   </configure>
 
 </configure>

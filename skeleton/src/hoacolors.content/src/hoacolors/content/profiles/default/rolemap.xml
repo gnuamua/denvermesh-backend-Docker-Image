@@ -5,24 +5,20 @@
     <permission name="HOA-Colors: Add Subscription" acquire="False">
       <role name="Site Administrator" />
       <role name="Manager" />
-      <role name="Owner" />
-      <role name="HOAmanger" />
+      <role name="Member" />
     </permission>
     <permission name="HOA-Colors: Add HOA" acquire="False">
       <role name="Owner" />
-      <role name="HOAmanger" />
       <role name="Site Administrator" />
       <role name="Manager" />
     </permission>
     <permission name="HOA-Colors: Add Home" acquire="False">
       <role name="Owner" />
-      <role name="HomeOwner" />
       <role name="Site Administrator" />
       <role name="Manager" />
     </permission>
     <permission name="HOA-Colors: Add Colorscheme" acquire="False">
       <role name="Owner" />
-      <role name="HomeOwner" />
       <role name="Site Administrator" />
       <role name="Manager" />
     </permission>

@@ -1,4 +1,4 @@
-FROM fedora:latest as base
+FROM fedora:36 as base
 FROM base as builder
 
 ENV PIP_PARAMS=""

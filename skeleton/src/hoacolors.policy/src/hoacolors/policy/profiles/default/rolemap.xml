@@ -3,7 +3,7 @@
   <roles>
     <role name="HOAmanager"/>
     <role name="HomeOwner"/>
-    <role name="Owner"/>
+    <role name="Creator"/>
     <role name="Anonymous"/>
     <role name="Authenticated"/>
     <role name="Editor"/>
@@ -41,31 +41,31 @@
       <role name="HomeOwner"/>
     </permission>
     <permission name="Access contents information" acquire="False">
-      <role name="Owner"/>
+      <role name="Creator"/>
     </permission>
     <permission name="Add portal content" acquire="False">
-      <role name="Owner"/>
+      <role name="Creator"/>
     </permission>
     <permission name="Modify portal content" acquire="False">
-      <role name="Owner"/>
+      <role name="Creator"/>
     </permission>
     <permission name="View" acquire="False">
-      <role name="Owner"/>
+      <role name="Creator"/>
     </permission>
     <permission name="HOA-Colors: View Subscription" acquire="False">
-      <role name="Owner"/>
+      <role name="Creator"/>
     </permission>
     <permission name="HOA-Colors: View HOA" acquire="False">
       <role name="HomeOwner"/>
       <role name="HOAmanager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
     </permission>
     <permission name="HOA-Colors: View Home" acquire="False">
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="HOAmanager"/>
     </permission>
     <permission name="HOA-Colors: View Colorscheme" acquire="False">
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="HOAmanager"/>
     </permission>
     <permission name="Access contents information" acquire="True">
@@ -73,23 +73,23 @@
       <role name="Site Administrator"/>
     </permission>
     <permission name="Access inactive portal content" acquire="True">
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="Add portal content" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="Add portal folders" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="Add portal member" acquire="False">
       <role name="Anonymous"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="Allow sendto" acquire="True">
@@ -100,41 +100,41 @@
     <permission name="CMFEditions: Access previous versions" acquire="True">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Reviewer"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="CMFEditions: Apply version control" acquire="True">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Reviewer"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="CMFEditions: Checkout to location" acquire="True">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Reviewer"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="CMFEditions: Revert to previous versions" acquire="True">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Reviewer"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="CMFEditions: Save new version" acquire="True">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Reviewer"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="CMFPlacefulWorkflow: Manage workflow policies" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="Change local roles" acquire="True">
@@ -155,30 +155,30 @@
     <permission name="Delete objects" acquire="True">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="Delete own comments" acquire="False">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Reviewer"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="Edit comments" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Reviewer"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="FTP access" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="List folder contents" acquire="True">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Reviewer"/>
       <role name="Site Administrator"/>
     </permission>
@@ -199,7 +199,7 @@
     <permission name="Manage Context Aliases" acquire="True">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="Manage Portal Aliases" acquire="True">
@@ -209,18 +209,18 @@
     <permission name="Manage properties" acquire="True">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="Modify portal content" acquire="True">
       <role name="Editor"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="Modify view template" acquire="True">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="Portlets: Manage own portlets" acquire="True">
@@ -243,7 +243,7 @@
     <permission name="Request review" acquire="True">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="Review comments" acquire="True">
@@ -274,7 +274,7 @@
     </permission>
     <permission name="Undo changes" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="Use mailhost services" acquire="True">
@@ -290,7 +290,7 @@
     <permission name="View Groups" acquire="True">
       <role name="Manager"/>
       <role name="Member"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="View comments" acquire="True">
@@ -298,7 +298,7 @@
     </permission>
     <permission name="View management screens" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
     </permission>
     <permission name="WebDAV Lock items" acquire="True">
       <role name="Site Administrator"/>
@@ -311,54 +311,54 @@
     </permission>
     <permission name="plone.app.contenttypes: Add Collection" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="plone.app.contenttypes: Add Document" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="plone.app.contenttypes: Add Event" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="plone.app.contenttypes: Add File" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="plone.app.contenttypes: Add Folder" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="plone.app.contenttypes: Add Image" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="plone.app.contenttypes: Add Link" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="plone.app.contenttypes: Add News Item" acquire="True">
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="plone.app.event: Import Ical" acquire="True">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
       <role name="Site Administrator"/>
     </permission>
     <permission name="plone.app.multilingual: Manage Translations" acquire="True">
       <role name="Editor"/>
       <role name="Manager"/>
-      <role name="Owner"/>
+      <role name="Creator"/>
     </permission>
     <permission name="plone.resource: Export ZIP file" acquire="False">
       <role name="Manager"/>

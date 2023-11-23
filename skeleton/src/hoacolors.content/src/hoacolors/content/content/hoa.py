@@ -38,6 +38,11 @@ def totalHomesIsValid(value):
             raise zope.interface.Invalid("Total number of homes must be a postive number greater than Zero")
     return True
 
+def isConfigDefaultValue():
+    """Set default value to False to show HOA has not been configured"""
+    value = False
+    return value
+
 class IHoa(model.Schema):
     """Dexterity-Schema for HOA content type"""
 
@@ -85,6 +90,13 @@ class IHoa(model.Schema):
         description='The total number of Homes in the HOA',
         required=True,
         constraint=totalHomesIsValid,
+    )
+
+    isConfig = schema.Bool(
+        title='Configured Bool',
+        description='The Boolean for the state if HOA is configured',
+        required=False,
+        defaultFactory=isConfigDefaultValue,
     )
 
 @implementer(IHoa)

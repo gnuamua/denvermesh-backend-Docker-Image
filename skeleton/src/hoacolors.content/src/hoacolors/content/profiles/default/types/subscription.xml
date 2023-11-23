@@ -2,7 +2,7 @@
 <object name="subscription" meta_type="Dexterity FTI" i18n:domain="plone"
    xmlns:i18n="http://xml.zope.org/namespaces/i18n">
  <property name="title" i18n:translate="">Subscription</property>
- <property name="description" i18n:translate=""></property>
+ <property name="description" i18n:translate="">Subscription Purchased by the HOA Manager</property>
  <property name="icon_expr">string:${portal_url}/document_icon.png</property>
  <property name="factory">subscription</property>
  <property name="add_view_expr">string:${folder_url}/++add++subscription</property>
@@ -22,13 +22,12 @@
   <element value="subscription_view"/>
  </property>
  <property name="default_view_fallback">False</property>
- <property name="add_permission">hoacolors.AddSubscription</property>
+ <property name="add_permission">cmf.AddPortalContent</property>
  <property name="klass">hoacolors.content.content.subscription.Subscription</property>
  <property name="schema">hoacolors.content.content.subscription.ISubscription</property>
  <property name="behaviors">
   <element value="plone.dublincore"/>
   <element value="plone.namefromtitle"/>
-  <element value="plone.versioning" />
  </property>
  <property name="model_source"></property>
  <property name="model_file"></property>

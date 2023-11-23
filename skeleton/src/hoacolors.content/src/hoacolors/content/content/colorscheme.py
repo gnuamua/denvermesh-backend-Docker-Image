@@ -2,6 +2,7 @@ from plone import schema
 from plone.app.textfield import RichText
 from plone.autoform import directives
 from plone.dexterity.content import Container
+from plone.dexterity.content import Item
 from plone.namedfile.field import NamedBlobImage
 from plone.schema.email import Email
 from plone.supermodel import model
@@ -60,5 +61,5 @@ class IColorscheme(model.Schema):
     )
 
 @implementer(IColorscheme)
-class Colorscheme(Container):
+class Colorscheme(Item):
     """Colorscheme Content type instance class"""
