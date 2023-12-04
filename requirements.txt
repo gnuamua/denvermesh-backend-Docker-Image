@@ -6,6 +6,7 @@
 -e src/dexterity.membrane
 -e src/collective.volto.dropdownmenu
 
+plone == 6.0.8
 Pillow
 plone.formwidget.hcaptcha
 collective.volto.formsupport

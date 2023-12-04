@@ -1,9 +1,9 @@
-FROM fedora:36 as base
+FROM fedora:37 as base
 FROM base as builder
 
 ENV PIP_PARAMS=""
 ENV PIP_VERSION=23.0.1
-ENV PLONE_VERSION=6.0.0
+ENV PLONE_VERSION=6.0.8
 
 RUN mkdir /wheelhouse
 
@@ -15,13 +15,13 @@ RUN dnf update -y \
     && rm -Rf /usr/share/doc
 
 RUN pip install wheel 
-RUN pip wheel Plone plone.volto -c https://dist.plone.org/release/6.0-latest/constraints.txt --wheel-dir=/wheelhouse
+RUN pip wheel Plone plone.volto -c https://dist.plone.org/release/6.0.8/constraints.txt --wheel-dir=/wheelhouse
 
 FROM base
 
 ENV PIP_PARAMS=""
 ENV PIP_VERSION=23.0.1
-ENV PLONE_VERSION=6.0.0
+ENV PLONE_VERSION=6.0.8
 
 LABEL maintainer="Andrew Himelstieb <admin@hoa-colors.com>" \
       org.label-schema.name="plone-backend" \
