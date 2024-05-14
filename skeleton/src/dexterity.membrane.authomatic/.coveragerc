@@ -1,6 +1,0 @@
-[report]
-include =
-    src/dexterity/*
-omit =
-    */test*
-    */upgrades/*

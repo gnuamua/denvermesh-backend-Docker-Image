@@ -26,7 +26,7 @@ ENV PLONE_VERSION=6.0.8
 LABEL maintainer="Andrew Himelstieb <admin@hoa-colors.com>" \
       org.label-schema.name="plone-backend" \
       org.label-schema.description="Plone backend image image using Python 3.9 and Fedora 38" \
-      org.label-schema.vendor="HOA-Colors"
+      org.label-schema.vendor="DenverMesh.org"
 
 COPY --from=builder /wheelhouse /wheelhouse
 

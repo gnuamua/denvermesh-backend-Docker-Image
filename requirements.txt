@@ -1,11 +1,3 @@
--e src/hoacolors.content
--e src/hoacolors.policy
--e src/authomatic
--e src/pas.plugins.authomatic
--e src/dexterity.membrane.authomatic
--e src/dexterity.membrane
--e src/collective.volto.dropdownmenu
-
 plone == 6.0.8
 Pillow
 plone.formwidget.hcaptcha
@@ -33,6 +25,5 @@ pyrepl == 0.9.0
 tomli == 2.0.1
 z3c.jbot == 1.1.1
 Authencoding == 4.3
-paypalrestsdk == 1.13.1
 zope.securitypolicy == 5.0
 zope.authentication == 5.0
