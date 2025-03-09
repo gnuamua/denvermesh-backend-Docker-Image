@@ -1,29 +1,27 @@
-FROM fedora:41 AS base
+FROM fedora:38 AS base
 FROM base AS builder
 
 ENV PIP_PARAMS=""
-#ENV PIP_VERSION=23.0.1
-ENV PLONE_VERSION=6.1
+ENV PIP_VERSION=23.0.1
+ENV PLONE_VERSION=6.0.8
 
 RUN mkdir /wheelhouse
 
 RUN dnf update -y \
-    && buildDeps="gcc-c++ gcc kernel-devel python3.12 patch openssl-devel libjpeg-devel libxslt-devel readline-devel make which python3-devel wv poppler-utils python3-virtualenv git libffi-devel glibc-devel bzip2-devel libjpeg-turbo-devel openldap-devel python3-tox lcov openjpeg2-devel pcre2-devel libpq-devel libgsasl-devel openssl-devel libtiff-devel libxml2-devel wget zlib-devel"\
+    && buildDeps="gcc-c++ gcc kernel-devel python3.9 patch openssl-devel libjpeg-devel libxslt-devel readline-devel make which python3-devel wv poppler-utils python3-virtualenv git libffi-devel glibc-devel bzip2-devel libjpeg-turbo-devel openldap-devel python3-tox lcov openjpeg2-devel pcre2-devel libpq-devel libgsasl-devel openssl-devel libtiff-devel libxml2-devel wget zlib-devel"\
     && dnf install -y $buildDeps\
-    && pip install -U pip\
+    && pip install -U "pip==${PIP_VERSION}"\
     && dnf clean all\
     && rm -Rf /usr/share/doc
 
-RUN python3.12 -m ensurepip --upgrade
-RUN python -m pip install --upgrade setuptools
 RUN pip install wheel 
-RUN pip wheel Plone plone.volto -c https://dist.plone.org/release/6-latest/requirements.txt --wheel-dir=/wheelhouse
+RUN pip wheel Plone plone.volto -c https://dist.plone.org/release/6.0.8/constraints.txt --wheel-dir=/wheelhouse
 
 FROM base
 
 ENV PIP_PARAMS=""
-#ENV PIP_VERSION=23.0.1
-ENV PLONE_VERSION=6.1
+ENV PIP_VERSION=23.0.1
+ENV PLONE_VERSION=6.0.8
 
 LABEL maintainer="Andrew Himelstieb <admin@hoa-colors.com>" \
       org.label-schema.name="plone-backend" \
@@ -34,7 +32,7 @@ COPY --from=builder /wheelhouse /wheelhouse
 
 RUN useradd --system -m -d /app -U -u 500 plone \
     && dnf update -y \
-    && dnf install -y git python3-virtualenv libpq libtiff libxml2 wget zlib openjpeg2 libjpeg-turbo glibc libffi wv poppler-utils python3.12 bzip2 which make busybox libxslt lynx netcat rsync \
+    && dnf install -y git python3-virtualenv libpq libtiff libxml2 wget zlib openjpeg2 libjpeg-turbo glibc libffi wv poppler-utils python3.9 bzip2 which make busybox libxslt lynx netcat rsync \
     && dnf clean all\
     && mkdir -p /data/filestorage /data/blobstorage /data/log /data/cache
 
@@ -45,9 +43,7 @@ COPY requirements.txt /app
 
 RUN virtualenv . \
     && source bin/activate\ 
-    && ./bin/pip install -U pip \
-    &&  python3.12 -m ensurepip --upgrade \
-    &&  python -m pip install --upgrade setuptools \
+    && ./bin/pip install -U "pip==${PIP_VERSION}" \
     && ./bin/pip install --force-reinstall --no-index --no-deps /wheelhouse/* \
     && ./bin/pip install -r requirements.txt \
     && find . \( -type f -a -name '*.pyc' -o -name '*.pyo' \) -exec rm -rf '{}' + \

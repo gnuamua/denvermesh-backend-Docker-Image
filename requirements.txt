@@ -1,4 +1,4 @@
-plone == 6.1
+plone == 6.0.8
 Pillow
 collective.easyform
 node == 1.0                                                                                                                                                                               
@@ -124,7 +124,7 @@ Authencoding == 4.3
 zope.securitypolicy == 5.0
 
 # Required by:
-# zope.securitypolicy==5.0
+zope.securitypolicy==5.0
 zope.authentication == 5.0
 #Required by Stripe
 #stripe == 8.9.0
