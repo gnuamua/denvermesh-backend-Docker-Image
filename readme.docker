@@ -8,7 +8,7 @@ denvermesh.org website. These files are required to build the image
 so the image can be included in the docker-compose file for the
 site.
 
-The Dockerfile uses a fedora 36 base image, and installs the plone backend and addons using
+The Dockerfile uses a fedora 41 base image, and installs the plone backend and addons using
 pip instead of buildout. This file also copies requirements.txt and the skeleton dir
 into the image, as these files are used to configure the image.
 
@@ -24,3 +24,10 @@ to the path of your addon directory.
 Once this docker image is built and pushed to dockerhub (or equivalent), and then pulled by the server, the Data.fs file (the plone ZODB database) will need to be copied into the persistant volume for the docker-compose container on the server, located in /var/lib/docker/volumes/docker-compose_data/_data/ or there abouts. 
 	`rsync -avz <source>/  <dest> ` for the blobstorage as well, to the blobstorage location on the server (note the "/" on the source, and not on the dest). 
 **-This essentially copies the entire site (minus the volto frontend) from the developement environment on local computer to server,  or can be done vice-versa.
+
+*Updated Sat Mar 8 2025 -
+	Plone version to 6.1-latest, pip upgrade setuptools, etc
+	Used for the docker image pulled by docker-compose.denmesh.yml 
+	Tag: gnuamua/denvermesh-backend:prod
+
+
