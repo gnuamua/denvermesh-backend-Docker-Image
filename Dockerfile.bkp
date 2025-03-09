@@ -1,0 +1,35 @@
+# syntax=docker/dockerfile:1
+ARG PYTHON_VERSION=3.11
+ARG PLONE_VERSION=6.1
+FROM plone/server-builder:${PLONE_VERSION} as builder
+
+# Remove Volto support from builder image
+#RUN /app/bin/pip uninstall -y plone.volto
+
+# install our addons
+# TODO compact the commands
+#RUN /app/bin/pip install addon1 addon2 addon3
+# add a local src module to test it
+#RUN mkdir -p /app/src/mymodule/
+COPY skeleton/ /app/
+COPY requirements.txt /app
+RUN /app/bin/pip install -r /app/requirements.txt
+
+FROM plone/server-prod-config:${PLONE_VERSION}
+
+LABEL maintainer="Plone Community <dev@plone.org>" \
+      org.label-schema.name="plone-classicui" \
+      org.label-schema.description="Plone $PLONE_VERSION Classic UI image using Python $PYTHON_VERSION" \
+      org.label-schema.vendor="Plone Foundation"
+
+# Use /app as the workdir
+WORKDIR /app
+
+# Copy /app from builder
+COPY --from=builder --chown=500:500 /app /app
+
+# Link /data (the exposed volume) into /app/var
+RUN ln -s /data /app/var
+
+# Setup default type for site creation to be classic
+ENV TYPE=volto

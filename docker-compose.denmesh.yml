@@ -1,0 +1,135 @@
+version: '3.3'
+services:
+
+  webserver:
+    image: gnuamua/denvermesh-webserver:prod
+    restart: always
+    depends_on:
+      - backend
+      - frontend
+      - db
+    ports:
+    - '80:80'
+    - '443:443'
+    networks:
+      - nginx-proxy
+
+  backend:
+    image: plone/plone-backend:6.1
+    restart: always
+    # Plone 5.2 series can be used too
+    # image: plone/plone-backend:5.2.7
+    ports:
+      - '8080:8080'
+    environment:
+      SITE: Plone
+      ZEO_ADDRESS: db:8100
+      #ADDONS: plone.restapi==8.21.0 plone.volto==4.0.0a3 plone.rest==2.0.0a2 plone.app.iterate==4.0.2 plone.app.vocabularies==4.3.0
+    depends_on:
+      - db
+    networks:
+      - nginx-proxy
+      - back
+
+  frontend:
+    image: gnuamua/denvermesh-frontend:prod
+    ports:
+      - '3000:3000'
+    restart: always
+    environment:
+      # These are needed in a Docker environment since the
+      # routing needs to be amended. You can point to the
+      # internal network alias.
+      RAZZLE_INTERNAL_API_PATH: http://backend:8080/Plone
+      RAZZLE_DEV_PROXY_API_PATH: http://backend:8080/Plone
+    depends_on:
+      - backend
+    networks:
+      - nginx-proxy
+
+  db:
+    image: plone/plone-zeo:latest
+    restart: always
+    volumes:
+      - data:/data
+    ports:
+      - "8100:8100"
+    networks:
+      - back
+
+  postgres:
+    image: postgres:${POSTGRES_IMAGE_TAG}
+    restart: ${RESTART_POLICY}
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 100
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
+    volumes:
+      - ${POSTGRES_DATA_PATH}:/var/lib/postgresql/data
+    environment:
+      # timezone inside container
+      - TZ
+
+      # necessary Postgres options/variables
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      #    ports:
+      #      - "8443:8443"
+    networks:
+      - back
+
+  mattermost:
+    depends_on:
+      - postgres
+    image: mattermost/${MATTERMOST_IMAGE}:${MATTERMOST_IMAGE_TAG}
+    restart: ${RESTART_POLICY}
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 200
+    read_only: ${MATTERMOST_CONTAINER_READONLY}
+    tmpfs:
+      - /tmp
+    volumes:
+      - ${MATTERMOST_CONFIG_PATH}:/mattermost/config:rw
+      - ${MATTERMOST_DATA_PATH}:/mattermost/data:rw
+      - ${MATTERMOST_LOGS_PATH}:/mattermost/logs:rw
+      - ${MATTERMOST_PLUGINS_PATH}:/mattermost/plugins:rw
+      - ${MATTERMOST_CLIENT_PLUGINS_PATH}:/mattermost/client/plugins:rw
+      - ${MATTERMOST_BLEVE_INDEXES_PATH}:/mattermost/bleve-indexes:rw
+      # When you want to use SSO with GitLab, you have to add the cert pki chain of GitLab inside Alpine
+      # to avoid Token request failed: certificate signed by unknown authority
+      # (link: https://github.com/mattermost/mattermost-server/issues/13059 and https://github.com/mattermost/docker/issues/34)
+      # - ${GITLAB_PKI_CHAIN_PATH}:/etc/ssl/certs/pki_chain.pem:ro
+    environment:
+      # timezone inside container
+      - TZ
+
+      # necessary Mattermost options/variables (see env.example)
+      - MM_SQLSETTINGS_DRIVERNAME
+      - MM_SQLSETTINGS_DATASOURCE
+
+      # necessary for bleve
+      - MM_BLEVESETTINGS_INDEXDIR
+
+      # additional settings
+      - MM_SERVICESETTINGS_SITEURL
+    ports:
+      - ${APP_PORT}:8065
+      - ${CALLS_PORT}:${CALLS_PORT}/udp
+      - ${CALLS_PORT}:${CALLS_PORT}/tcp
+    networks:
+      - nginx-proxy
+      - back
+
+networks:
+  nginx-proxy:
+    driver: bridge
+  back:
+    driver: bridge
+
+volumes:
+  data: {}
