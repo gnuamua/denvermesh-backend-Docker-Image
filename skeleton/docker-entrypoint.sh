@@ -8,6 +8,10 @@ set -e
 # Create directories to be used by Plone
 mkdir -p /data/filestorage /data/blobstorage /data/cache /data/log /data
 
+# Activate the virtual environment.
+# This ensures that all Python executables (like runwsgi) are found correctly.
+. "${PLONE_HOME}/.venv/bin/activate"
+
 # MAIN ENV Vars
 [ -z ${SECURITY_POLICY_IMPLEMENTATION+x} ] && export SECURITY_POLICY_IMPLEMENTATION=C
 [ -z ${VERBOSE_SECURITY+x} ] && export VERBOSE_SECURITY=off
@@ -27,11 +31,11 @@ MSG="Using ZEO configuration"
 [ -z ${ZEO_DROP_CACHE_RATHER_VERIFY+x} ] && export ZEO_DROP_CACHE_RATHER_VERIFY=false
 
 # Handle CORS
-/app/bin/python /app/scripts/cors.py
+${PLONE_HOME}/.venv/bin/python  /app/scripts/cors.py
 
 if [[ "$1" == "start" ]]; then
   echo $MSG
-  exec /app/bin/runwsgi -v /app/etc/zope.ini config_file=zeo.conf
+  exec ${PLONE_HOME}/.venv/bin/runwsgi -v /app/etc/zope.ini config_file=zeo.conf
 else
   exec "$@"
 fi
