@@ -1,0 +1,11 @@
+[project]
+name = "arufon.radio"
+version = "0.1.0"
+dependencies = [
+    "Plone==6.0.8",
+]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+

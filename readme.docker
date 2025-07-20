@@ -1,5 +1,5 @@
 ***************************************************************************
-----------------This is the DenverMesh-BACKEND REPO------------------------
+----------------This is the ARUFON-BACKEND REPO------------------------
 --------------Created by Andrew Himelstieb  May 14 2024--------------------
 ***************************************************************************
 
@@ -12,7 +12,7 @@ The Dockerfile uses a fedora 41 base image, and installs the plone backend and a
 pip instead of buildout. This file also copies requirements.txt and the skeleton dir
 into the image, as these files are used to configure the image.
 
-The github repo 'denvermesh-plone-backend', NOT 'this repo', contains all the development files for the Plone
+The github repo 'arufon-plone-backend', NOT 'this repo', contains all the development files for the Plone
 API backend for the DenverMesh website.
 
 Any locally developed addons, e.g. for content types or site policy (workflow) etc will need to be copied into this directory and the Dockerfile 
@@ -26,8 +26,8 @@ Once this docker image is built and pushed to dockerhub (or equivalent), and the
 **-This essentially copies the entire site (minus the volto frontend) from the developement environment on local computer to server,  or can be done vice-versa.
 
 *Updated Sat Mar 8 2025 -
-	Plone version to 6.1-latest, pip upgrade setuptools, etc
-	Used for the docker image pulled by docker-compose.denmesh.yml 
-	Tag: gnuamua/denvermesh-backend:prod
+	Plone version to 6.0.9, pip upgrade setuptools, etc
+	Used for the docker image pulled by docker-compose.yml 
+	Tag: gnuamua/arufon-backend:prod
 
 
